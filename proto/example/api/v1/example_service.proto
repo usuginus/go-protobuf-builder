@@ -5,7 +5,7 @@ package example.api.v1;
 import "example/common/v1/example_resources.proto";
 import "google/protobuf/field_mask.proto";
 
-option go_package = "github.com/usuginus/go-protobuf-builder/gen/go/example/apiv1;exampleapiv1";
+option go_package = "github.com/usuginus/go-protobuf-builder/gen/go/example/api/v1;exampleapiv1";
 
 // GetExampleRequest retrieves a single Example resource by name.
 message GetExampleRequest {

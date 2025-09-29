@@ -6,7 +6,7 @@ GOBIN := $(shell go env GOPATH)/bin
 endif
 BUF_BIN := $(GOBIN)/buf
 
-.PHONY: install build cleanup format lint
+.PHONY: install build cleanup format lint serve
 
 install: $(BUF_BIN)
 
@@ -26,3 +26,6 @@ lint: $(BUF_BIN)
 cleanup:
 	rm -rf gen
 	@echo "Removed generated artifacts."
+
+serve:
+	go run ./cmd/exampleservice
