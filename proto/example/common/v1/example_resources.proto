@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package example.common.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/usuginus/go-protobuf-builder/gen/go/example/common/v1;examplecommonv1";
+
+// AuditInfo captures who created and last modified a resource alongside timestamps.
+message AuditInfo {
+  string created_by = 1;
+  google.protobuf.Timestamp create_time = 2;
+  string updated_by = 3;
+  google.protobuf.Timestamp update_time = 4;
+}
+
+// ExampleStatus enumerates lifecycle states for an Example resource.
+enum ExampleStatus {
+  EXAMPLE_STATUS_UNSPECIFIED = 0;
+  EXAMPLE_STATUS_DRAFT = 1;
+  EXAMPLE_STATUS_ACTIVE = 2;
+  EXAMPLE_STATUS_ARCHIVED = 3;
+}
+
+// Example represents a sample resource managed by ExampleService-compatible APIs.
+message Example {
+  // name follows the pattern "projects/{project}/examples/{example}".
+  string name = 1;
+  // display_name is a human-readable title for the resource.
+  string display_name = 2;
+  // description provides additional details about the Example.
+  string description = 3;
+  // labels stores arbitrary metadata as key-value style strings.
+  repeated string labels = 4;
+  // revision increments each time an Example is updated.
+  int64 revision = 5;
+  // create_time records when the Example was created.
+  google.protobuf.Timestamp create_time = 6;
+  // update_time records the most recent update timestamp.
+  google.protobuf.Timestamp update_time = 7;
+  // status indicates the current lifecycle state of the Example.
+  ExampleStatus status = 8;
+  // audit contains authoring details for the most recent create and update operations.
+  AuditInfo audit = 9;
+}
