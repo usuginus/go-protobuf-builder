@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package example.api.v1;
+
+import "example/common/v1/example_resources.proto";
+import "google/protobuf/field_mask.proto";
+
+option go_package = "github.com/usuginus/go-protobuf-builder/gen/go/example/apiv1;exampleapiv1";
+
+// GetExampleRequest retrieves a single Example resource by name.
+message GetExampleRequest {
+  // name must match "projects/{project}/examples/{example}".
+  string name = 1;
+}
+
+// ListExamplesRequest lists Example resources under a parent collection.
+message ListExamplesRequest {
+  // parent identifies the resource owner, for example "projects/{project}".
+  string parent = 1;
+  // page_size is the maximum number of Examples to return.
+  int32 page_size = 2;
+  // page_token is the continuation token from a prior ListExamplesResponse.
+  string page_token = 3;
+}
+
+// ListExamplesResponse returns a paginated list of Example resources.
+message ListExamplesResponse {
+  // examples contains the requested resources.
+  repeated example.common.v1.Example examples = 1;
+  // next_page_token allows callers to retrieve the next page of results.
+  string next_page_token = 2;
+}
+
+// CreateExampleRequest registers a new Example resource.
+message CreateExampleRequest {
+  // parent identifies where the Example will be created.
+  string parent = 1;
+  // example_id is the client-defined identifier for the new resource.
+  string example_id = 2;
+  // example contains the data for the resource to create.
+  example.common.v1.Example example = 3;
+}
+
+// UpdateExampleRequest updates an existing Example resource.
+message UpdateExampleRequest {
+  // example holds the updated resource data and must include the name field.
+  example.common.v1.Example example = 1;
+  // update_mask specifies the fields to update.
+  google.protobuf.FieldMask update_mask = 2;
+}
+
+// DeleteExampleRequest removes an Example resource.
+message DeleteExampleRequest {
+  // name must match "projects/{project}/examples/{example}".
+  string name = 1;
+}
+
+// GetExampleResponse wraps a single Example resource.
+message GetExampleResponse {
+  example.common.v1.Example example = 1;
+}
+
+// CreateExampleResponse returns the newly created resource.
+message CreateExampleResponse {
+  example.common.v1.Example example = 1;
+}
+
+// UpdateExampleResponse returns the updated resource state.
+message UpdateExampleResponse {
+  example.common.v1.Example example = 1;
+}
+
+// DeleteExampleResponse confirms the resource removal.
+message DeleteExampleResponse {}
+
+// ExampleService provides CRUD operations for Example resources.
+service ExampleService {
+  rpc GetExample(GetExampleRequest) returns (GetExampleResponse);
+  rpc ListExamples(ListExamplesRequest) returns (ListExamplesResponse);
+  rpc CreateExample(CreateExampleRequest) returns (CreateExampleResponse);
+  rpc UpdateExample(UpdateExampleRequest) returns (UpdateExampleResponse);
+  rpc DeleteExample(DeleteExampleRequest) returns (DeleteExampleResponse);
+}
